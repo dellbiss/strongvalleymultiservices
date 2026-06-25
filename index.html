@@ -290,15 +290,18 @@
   .greviews-head .gh-stars{color:var(--gold);font-size:1.25rem;letter-spacing:2px}
   .greviews-head .gh-meta{font-size:.95rem;color:var(--muted);margin-top:2px}
   .greviews-head .gh-cta{margin-left:auto}
-  .greviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .greview{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column}
+  .greviews-scroller{overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+  .greviews-track{display:flex;gap:20px;width:max-content;animation:greviews-scroll 45s linear infinite}
+  .greviews-scroller:hover .greviews-track,.greviews-track:focus-within{animation-play-state:paused}
+  @keyframes greviews-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .greview{flex:0 0 320px;max-width:84vw;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column}
   .greview .gr-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
   .greview .gr-av{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--cream-2);flex:none}
   .greview .gr-name{font-weight:800;color:var(--brand-dark);font-size:1rem;line-height:1.2}
   .greview .gr-date{font-size:.82rem;color:var(--muted)}
   .greview .gr-stars{color:var(--gold);letter-spacing:1px;margin-bottom:.5em}
   .greview .gr-text{color:var(--ink);font-size:.98rem;line-height:1.6}
-  @media(max-width:900px){ .greviews-grid{grid-template-columns:1fr} .greviews-head .gh-cta{margin-left:0} }
+  @media(max-width:900px){ .greviews-head .gh-cta{margin-left:0} }
 
   /* ===== FAQ ===== */
   .faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:13px;overflow:hidden}
@@ -623,11 +626,11 @@
           <li>Friendly, fully insured crews</li>
         </ul>
       </div>
-      <!-- LEADS: sent to dsbusinessaccount@yahoo.com, CC'd to villafuertedelbys@gmail.com.
-           IMPORTANT: the very first time someone submits, FormSubmit emails the Yahoo
+      <!-- LEADS: sent to villafuertedelbys@gmail.com, CC'd to dsbusinessaccount@yahoo.com.
+           IMPORTANT: the very first time someone submits, FormSubmit emails the Gmail
            address a one-click "Activate" link — click it once and all future leads flow in. -->
-      <form action="https://formsubmit.co/dsbusinessaccount@yahoo.com" method="POST">
-        <input type="hidden" name="_cc" value="villafuertedelbys@gmail.com">
+      <form action="https://formsubmit.co/villafuertedelbys@gmail.com" method="POST">
+        <input type="hidden" name="_cc" value="dsbusinessaccount@yahoo.com">
         <input type="hidden" name="_subject" value="New quote request from strongvalleyservices.com">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -724,7 +727,8 @@
           '<div class="gr-stars" aria-label="' + r.rating + ' out of 5 stars">' + gStars(r.rating) + '</div>' +
           '<div class="gr-text">' + txt + '</div></div>';
       });
-      if (cards) host.innerHTML = head + '<div class="greviews-grid">' + cards + '</div>';
+      // Duplicate the card set so the marquee loops seamlessly (translateX -50%)
+      if (cards) host.innerHTML = head + '<div class="greviews-scroller"><div class="greviews-track">' + cards + cards + '</div></div>';
     });
   };
 
