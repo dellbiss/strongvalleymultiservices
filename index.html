@@ -278,11 +278,27 @@
   .review .loc{font-size:.9rem;color:var(--muted)}
   .reviews-widget{margin-top:22px}
   .reviews-fallback{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);max-width:560px;margin:0 auto;padding:38px 28px;text-align:center}
+  .reviews-fallback .greviews-g{margin:0 auto 10px}
   .reviews-fallback .stars-big{color:var(--gold);font-size:2.2rem;letter-spacing:4px;margin-bottom:.3em}
   .reviews-fallback p{font-size:1.1rem;margin-bottom:1.3em}
   .reviews-fallback .btn{margin-bottom:.7em}
   .reviews-write{display:block;font-weight:700;color:var(--brand);font-size:1rem}
   .reviews-write:hover{color:var(--accent-dark);text-decoration:underline}
+  /* Live Google reviews (rendered by JS) */
+  .greviews-head{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);max-width:620px;margin:0 auto 24px;padding:22px 26px;text-align:center}
+  .greviews-head .gh-score{font-size:2.6rem;font-weight:900;color:var(--ink);line-height:1}
+  .greviews-head .gh-stars{color:var(--gold);font-size:1.25rem;letter-spacing:2px}
+  .greviews-head .gh-meta{font-size:.95rem;color:var(--muted);margin-top:2px}
+  .greviews-head .gh-cta{margin-left:auto}
+  .greviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .greview{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column}
+  .greview .gr-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .greview .gr-av{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--cream-2);flex:none}
+  .greview .gr-name{font-weight:800;color:var(--brand-dark);font-size:1rem;line-height:1.2}
+  .greview .gr-date{font-size:.82rem;color:var(--muted)}
+  .greview .gr-stars{color:var(--gold);letter-spacing:1px;margin-bottom:.5em}
+  .greview .gr-text{color:var(--ink);font-size:.98rem;line-height:1.6}
+  @media(max-width:900px){ .greviews-grid{grid-template-columns:1fr} .greviews-head .gh-cta{margin-left:0} }
 
   /* ===== FAQ ===== */
   .faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:13px;overflow:hidden}
@@ -544,22 +560,32 @@
     <p class="lead center">We let our work — and our customers — do the talking. These are our verified reviews, live from Google.</p>
 
     <!-- ===================================================================
-         LIVE GOOGLE REVIEWS WIDGET  (auto-updates from your Google profile)
-         To switch it on (free, ~2 minutes):
-           1. Go to https://www.trustindex.io  (or https://elfsight.com)
-           2. Create a free account and connect THIS Google profile:
-              https://share.google/ViobnrFOPpQZbNw3Y
-           3. Choose a "Google Reviews" widget, then copy the embed code
-           4. Paste that embed code in place of the "reviews-fallback"
-              block below (keep everything else as-is)
-         Until then, the button below sends visitors straight to your Google reviews.
+         LIVE GOOGLE REVIEWS WIDGET (Google Places API — auto-updates)
+         TO TURN ON (one-time, free):
+           1. Get a Google Maps API key:
+              https://console.cloud.google.com/google/maps-apis/credentials
+              - Enable the "Places API", create an API key.
+              - Under "Application restrictions" choose "Websites" and add
+                your domains (strongvalleyservices.com, dellbiss.github.io).
+           2. Get your Place ID at:
+              https://developers.google.com/maps/documentation/places/web-service/place-id
+              (search your business name; copy the Place ID string).
+           3. In this file, find GOOGLE_MAPS_API_KEY and GOOGLE_PLACE_ID
+              (in the JS near the bottom + the maps loader at the very end)
+              and replace them with your real values, then un-comment the
+              maps loader line. That's it — live stars + reviews appear here.
+         Until configured, the styled card + Google button below shows.
          =================================================================== -->
     <div class="reviews-widget">
-      <div class="reviews-fallback">
-        <div class="stars-big" aria-hidden="true">★★★★★</div>
-        <p>See our verified 5-star reviews from real Tampa Bay customers — straight from Google.</p>
-        <a href="https://share.google/ViobnrFOPpQZbNw3Y" target="_blank" rel="noopener" class="btn btn-call">★ Read Our Google Reviews</a>
-        <a href="https://share.google/ViobnrFOPpQZbNw3Y" target="_blank" rel="noopener" class="reviews-write">Leave us a review →</a>
+      <div id="google-reviews" class="greviews">
+        <!-- JS fills this once the API key + Place ID are set; fallback shows otherwise -->
+        <div class="reviews-fallback">
+          <img class="greviews-g" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='40' height='40'%3E%3Cpath fill='%234285F4' d='M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z'/%3E%3Cpath fill='%2334A853' d='M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z'/%3E%3Cpath fill='%23FBBC05' d='M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34A21.99 21.99 0 0 0 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z'/%3E%3Cpath fill='%23EA4335' d='M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z'/%3E%3C/svg%3E" width="40" height="40" alt="Google" loading="lazy">
+          <div class="stars-big" aria-hidden="true">★★★★★</div>
+          <p>See our verified reviews from real Tampa Bay customers — straight from Google.</p>
+          <a href="https://share.google/ViobnrFOPpQZbNw3Y" target="_blank" rel="noopener" class="btn btn-call">Read Our Google Reviews</a>
+          <a href="https://share.google/ViobnrFOPpQZbNw3Y" target="_blank" rel="noopener" class="reviews-write">Leave us a review →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -672,6 +698,36 @@
   });
   l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ l.classList.remove('open'); t.setAttribute('aria-expanded','false'); }); });
 
+  // ===== Live Google reviews via Places API =====
+  // Replace GOOGLE_PLACE_ID with your Place ID (see the comment in the Reviews section).
+  var GOOGLE_PLACE_ID = 'GOOGLE_PLACE_ID';
+  function gStars(n){ var f = Math.max(0, Math.min(5, Math.round(n))); return '★★★★★'.slice(0, f) + '☆☆☆☆☆'.slice(0, 5 - f); }
+  window.initGoogleReviews = function(){
+    if (GOOGLE_PLACE_ID === 'GOOGLE_PLACE_ID') return;
+    if (!(window.google && google.maps && google.maps.places)) return;
+    var host = document.getElementById('google-reviews');
+    if (!host) return;
+    var svc = new google.maps.places.PlacesService(document.createElement('div'));
+    svc.getDetails({ placeId: GOOGLE_PLACE_ID, fields: ['name','rating','user_ratings_total','reviews','url'] }, function(place, status){
+      if (status !== google.maps.places.PlacesServiceStatus.OK || !place) return;
+      var url = place.url || 'https://share.google/ViobnrFOPpQZbNw3Y';
+      var head = '<div class="greviews-head"><div><div class="gh-score">' + (place.rating || '') +
+        '</div><div class="gh-stars">' + gStars(place.rating || 0) + '</div><div class="gh-meta">' +
+        (place.user_ratings_total || 0) + ' Google reviews</div></div>' +
+        '<a class="btn btn-call gh-cta" target="_blank" rel="noopener" href="' + url + '">Read all on Google</a></div>';
+      var cards = '';
+      (place.reviews || []).slice(0, 6).forEach(function(r){
+        var av = r.profile_photo_url ? '<img class="gr-av" src="' + r.profile_photo_url + '" alt="" loading="lazy">' : '<span class="gr-av"></span>';
+        var txt = (r.text || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        cards += '<div class="greview"><div class="gr-top">' + av + '<div><div class="gr-name">' + r.author_name +
+          '</div><div class="gr-date">' + (r.relative_time_description || '') + '</div></div></div>' +
+          '<div class="gr-stars" aria-label="' + r.rating + ' out of 5 stars">' + gStars(r.rating) + '</div>' +
+          '<div class="gr-text">' + txt + '</div></div>';
+      });
+      if (cards) host.innerHTML = head + '<div class="greviews-grid">' + cards + '</div>';
+    });
+  };
+
   // Show a thank-you banner after the form redirects back (?sent=1)
   if (location.search.indexOf('sent=1') > -1) {
     var b = document.createElement('div');
@@ -706,5 +762,12 @@
     setPos(50);
   });
 </script>
+
+<!-- ===== GOOGLE REVIEWS LOADER =====
+     To go live: replace GOOGLE_MAPS_API_KEY with your key (and set GOOGLE_PLACE_ID
+     in the script above), then remove this comment wrapper so the line below runs:
+<script async src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&libraries=places&callback=initGoogleReviews"></script>
+     ================================= -->
 </body>
 </html>
+

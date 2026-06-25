@@ -20,16 +20,25 @@ sitemap.xml   Helps Google index the site (with images + lastmod)
      "activate" link. Click it once and every future lead hits your inbox.
    - No account, no cost. (Tell me your email and I'll drop it in for you.)
 
-2. TURN ON LIVE GOOGLE REVIEWS  (2 min — free)
-   - Go to https://www.trustindex.io  (or https://elfsight.com)
-   - Make a free account, connect your Google profile:
-       https://share.google/ViobnrFOPpQZbNw3Y
-   - Pick a "Google Reviews" widget, copy the embed code.
-   - In index.html, find the block:  <div class="reviews-fallback"> ... </div>
-     (inside the LIVE GOOGLE REVIEWS WIDGET comment) and paste the embed
-     code in its place. Reviews then auto-update from Google forever.
-   - Until you do, the "Read Our Google Reviews" button already sends
-     visitors straight to your real Google profile.
+2. TURN ON LIVE GOOGLE REVIEWS  (built in — needs 2 values from you)
+   The site now has a real Google reviews widget that pulls your live star
+   rating + latest reviews straight from Google. To switch it on:
+     a. Get a free Google Maps API key:
+        https://console.cloud.google.com/google/maps-apis/credentials
+        - Enable "Places API", create an API key.
+        - Restrict it to "Websites": strongvalleyservices.com + dellbiss.github.io
+     b. Get your Place ID:
+        https://developers.google.com/maps/documentation/places/web-service/place-id
+        (search your business name, copy the Place ID).
+     c. In index.html: replace GOOGLE_PLACE_ID (in the script near the bottom)
+        and GOOGLE_MAPS_API_KEY (in the maps loader at the very end), then
+        delete the comment markers around that loader line so it runs.
+   - Google gives $200/mo free Maps credit — far more than a small site uses.
+   - Until configured, a clean Google-branded card + a "Read Our Google
+     Reviews" button send visitors straight to your real Google profile.
+   - Prefer no API key? A no-code alternative is trustindex.io or elfsight.com
+     (free): connect Google, copy their embed, paste it over the
+     "reviews-fallback" block. Either path works.
 
 3. CREATE / CLAIM YOUR GOOGLE BUSINESS PROFILE  (#1 source of local cash)
    - https://business.google.com  — this is what puts you in the Google Map
