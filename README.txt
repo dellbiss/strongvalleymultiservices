@@ -20,25 +20,21 @@ sitemap.xml   Helps Google index the site (with images + lastmod)
      "activate" link. Click it once and every future lead hits your inbox.
    - No account, no cost. (Tell me your email and I'll drop it in for you.)
 
-2. TURN ON LIVE GOOGLE REVIEWS  (built in — needs 2 values from you)
-   The site now has a real Google reviews widget that pulls your live star
-   rating + latest reviews straight from Google. To switch it on:
-     a. Get a free Google Maps API key:
-        https://console.cloud.google.com/google/maps-apis/credentials
-        - Enable "Places API", create an API key.
-        - Restrict it to "Websites": strongvalleyservices.com + dellbiss.github.io
-     b. Get your Place ID:
-        https://developers.google.com/maps/documentation/places/web-service/place-id
-        (search your business name, copy the Place ID).
-     c. In index.html: replace GOOGLE_PLACE_ID (in the script near the bottom)
-        and GOOGLE_MAPS_API_KEY (in the maps loader at the very end), then
-        delete the comment markers around that loader line so it runs.
-   - Google gives $200/mo free Maps credit — far more than a small site uses.
-   - Until configured, a clean Google-branded card + a "Read Our Google
-     Reviews" button send visitors straight to your real Google profile.
-   - Prefer no API key? A no-code alternative is trustindex.io or elfsight.com
-     (free): connect Google, copy their embed, paste it over the
-     "reviews-fallback" block. Either path works.
+2. TURN ON LIVE GOOGLE REVIEWS — TRUSTINDEX  (free, NO credit card)
+   The reviews section is set up for a Trustindex widget that auto-scrolls
+   your real Google reviews. No API key, no billing, nothing to run out of.
+     a. Go to https://www.trustindex.io and create a FREE account.
+     b. Connect your Google profile:
+        https://share.google/ViobnrFOPpQZbNw3Y
+     c. Choose a Google Reviews widget — pick a "Carousel" / "Slider" style
+        so the reviews scroll automatically.
+     d. Copy the embed snippet Trustindex gives you.
+     e. In index.html, find the "reviews-fallback" block (inside the Reviews
+        section, marked with a "Paste your Trustindex embed code here"
+        comment) and replace that block with the embed snippet.
+   - Until you do, a clean Google-branded card + a "Read Our Google Reviews"
+     button send visitors straight to your real Google profile.
+   - (Elfsight.com works the same way if you prefer it.)
 
 3. CREATE / CLAIM YOUR GOOGLE BUSINESS PROFILE  (#1 source of local cash)
    - https://business.google.com  — this is what puts you in the Google Map
