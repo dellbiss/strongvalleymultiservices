@@ -64,12 +64,16 @@
   }],
   "foundingDate": "2003",
   "slogan": "Serving Tampa Bay since 2003",
-  "sameAs": ["https://www.facebook.com/strongvalleyservices"],
+  "sameAs": [
+    "https://www.facebook.com/strong.valley.multi.services.llc.2023/",
+    "https://www.instagram.com/strong_valley_multi_services/",
+    "https://www.tiktok.com/@delvysvillafuerte",
+    "https://www.yelp.com/biz/strong-valley-multi-services-twn-n-cntry"
+  ],
   "makesOffer": [
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Junk Removal & Hauling" } },
     { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pressure Washing" } }
-  ],
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "45", "bestRating": "5" }
+  ]
 }
 </script>
 
@@ -272,6 +276,13 @@
   .review p{color:var(--ink);font-style:italic;margin-bottom:1em;font-size:1.05rem}
   .review .who{font-weight:800;color:var(--brand-dark);font-style:normal}
   .review .loc{font-size:.9rem;color:var(--muted)}
+  .reviews-widget{margin-top:22px}
+  .reviews-fallback{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);max-width:560px;margin:0 auto;padding:38px 28px;text-align:center}
+  .reviews-fallback .stars-big{color:var(--gold);font-size:2.2rem;letter-spacing:4px;margin-bottom:.3em}
+  .reviews-fallback p{font-size:1.1rem;margin-bottom:1.3em}
+  .reviews-fallback .btn{margin-bottom:.7em}
+  .reviews-write{display:block;font-weight:700;color:var(--brand);font-size:1rem}
+  .reviews-write:hover{color:var(--accent-dark);text-decoration:underline}
 
   /* ===== FAQ ===== */
   .faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:13px;overflow:hidden}
@@ -528,13 +539,28 @@
 <!-- REVIEWS -->
 <section class="reviews" id="reviews">
   <div class="wrap">
-    <span class="eyebrow">5-Star Reviews</span>
+    <span class="eyebrow">★★★★★ Reviews</span>
     <h2>What Our Tampa Bay Customers Say</h2>
-    <p class="lead center">Rated a perfect <strong>5.0 stars</strong> across <strong>45 reviews</strong> — here's a sample.</p>
-    <div class="rgrid">
-      <div class="review"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>"Booked in the morning, gone by the afternoon. The crew was polite, fast, and the price was exactly what they quoted. Couldn't ask for more."</p><div class="who">— Maria G.</div><div class="loc">Tampa, FL</div></div>
-      <div class="review"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>"They cleared out my whole garage AND pressure washed the driveway. Looked brand new. I'll be calling them every season."</p><div class="who">— James T.</div><div class="loc">Brandon, FL</div></div>
-      <div class="review"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>"Handled my parents' estate cleanout with so much care and respect. Honest pricing and no junk left behind. Highly recommend."</p><div class="who">— Danielle R.</div><div class="loc">Clearwater, FL</div></div>
+    <p class="lead center">We let our work — and our customers — do the talking. These are our verified reviews, live from Google.</p>
+
+    <!-- ===================================================================
+         LIVE GOOGLE REVIEWS WIDGET  (auto-updates from your Google profile)
+         To switch it on (free, ~2 minutes):
+           1. Go to https://www.trustindex.io  (or https://elfsight.com)
+           2. Create a free account and connect THIS Google profile:
+              https://share.google/ViobnrFOPpQZbNw3Y
+           3. Choose a "Google Reviews" widget, then copy the embed code
+           4. Paste that embed code in place of the "reviews-fallback"
+              block below (keep everything else as-is)
+         Until then, the button below sends visitors straight to your Google reviews.
+         =================================================================== -->
+    <div class="reviews-widget">
+      <div class="reviews-fallback">
+        <div class="stars-big" aria-hidden="true">★★★★★</div>
+        <p>See our verified 5-star reviews from real Tampa Bay customers — straight from Google.</p>
+        <a href="https://share.google/ViobnrFOPpQZbNw3Y" target="_blank" rel="noopener" class="btn btn-call">★ Read Our Google Reviews</a>
+        <a href="https://share.google/ViobnrFOPpQZbNw3Y" target="_blank" rel="noopener" class="reviews-write">Leave us a review →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -571,11 +597,20 @@
           <li>Friendly, fully insured crews</li>
         </ul>
       </div>
-      <form action="#" method="post" onsubmit="event.preventDefault(); this.querySelector('.btn-call').textContent='✅ Thanks! We\'ll call you shortly.';">
+      <!-- LEADS GO HERE: replace REPLACE-WITH-YOUR-EMAIL below with your real email.
+           First real submission, FormSubmit emails you a one-click activation link. No signup needed. -->
+      <form action="https://formsubmit.co/REPLACE-WITH-YOUR-EMAIL" method="POST">
+        <input type="hidden" name="_subject" value="New quote request from strongvalleyservices.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://strongvalleyservices.com/?sent=1">
+        <input type="text" name="_honey" style="display:none">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
         <label for="phone">Phone</label>
         <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(___) ___-____" required>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@email.com">
         <label for="service">Service Needed</label>
         <select id="service" name="service">
           <option>Junk Removal</option>
@@ -611,7 +646,8 @@
       <a href="#area">Service Area</a>
       <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
-      <a href="https://www.facebook.com/strongvalleyservices" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.facebook.com/strong.valley.multi.services.llc.2023/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/strong_valley_multi_services/" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
   <div class="foot-bottom">
@@ -633,6 +669,16 @@
     t.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
   l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ l.classList.remove('open'); t.setAttribute('aria-expanded','false'); }); });
+
+  // Show a thank-you banner after the form redirects back (?sent=1)
+  if (location.search.indexOf('sent=1') > -1) {
+    var b = document.createElement('div');
+    b.setAttribute('role', 'status');
+    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:200;background:#1f9d63;color:#fff;font-weight:800;text-align:center;padding:14px 16px;box-shadow:0 4px 16px rgba(0,0,0,.25)';
+    b.textContent = '✅ Thanks! We got your request and will reach out shortly.';
+    document.body.appendChild(b);
+    setTimeout(function(){ b.style.transition = 'opacity .6s'; b.style.opacity = '0'; setTimeout(function(){ b.remove(); }, 700); }, 6000);
+  }
 
   // Before/after comparison sliders (drag anywhere: mouse, touch, keyboard)
   document.querySelectorAll('.ba-slider').forEach(function(s){
