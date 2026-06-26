@@ -7,20 +7,17 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://strongvalleyservices.com/images/paver-patio-pressure-washing-tampa-after.jpg</image:loc>
-      <image:title>Paver patio restored by pressure washing in Tampa, FL by Strong Valley Multi Services</image:title>
+      <image:loc>https://strongvalleyservices.com/images/og-image.jpg</image:loc>
+      <image:title>Strong Valley Multi Services - Junk Removal and Pressure Washing in Tampa, FL</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://strongvalleyservices.com/images/paver-patio-pressure-washing-tampa-before.jpg</image:loc>
-      <image:title>Dirty, weed-covered paver patio before pressure washing in Tampa, FL</image:title>
+      <image:loc>https://strongvalleyservices.com/images/paver-patio-pressure-washing-tampa-after.jpg</image:loc>
+      <image:title>Paver patio restored by pressure washing in Tampa, FL</image:title>
     </image:image>
     <image:image>
       <image:loc>https://strongvalleyservices.com/images/paver-walkway-pressure-washing-tampa-after.jpg</image:loc>
       <image:title>Clean red brick walkway after pressure washing in Tampa, FL</image:title>
     </image:image>
-    <image:image>
-      <image:loc>https://strongvalleyservices.com/images/paver-walkway-pressure-washing-tampa-before.jpg</image:loc>
-      <image:title>Overgrown red brick walkway before pressure washing in Tampa, FL</image:title>
-    </image:image>
   </url>
 </urlset>
+
