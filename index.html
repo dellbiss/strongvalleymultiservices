@@ -310,6 +310,7 @@
   .qinfo li{color:#d8e4ee;margin-bottom:.55em;padding-left:1.7em;position:relative;font-size:1.05rem}
   .qinfo li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:900}
   form{background:#fff;border-radius:18px;padding:32px;box-shadow:var(--shadow)}
+  #quote{scroll-margin-top:120px}
   form label{display:block;font-weight:700;color:var(--ink);margin:0 0 6px;font-size:1rem}
   form input,form select,form textarea{width:100%;padding:14px 15px;border:2px solid var(--line);border-radius:10px;margin-bottom:18px;font-size:16px;font-family:inherit;color:var(--ink)}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--accent)}
@@ -358,7 +359,7 @@
 </style>
 </head>
 <body>
-<a href="#contact" class="skip">Skip to free quote</a>
+<a href="#quote" class="skip">Skip to free quote</a>
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -383,7 +384,7 @@
     </nav>
     <div class="nav-right">
       <a href="tel:+18447473075" class="nav-phone">(844) 747-3075</a>
-      <a href="#contact" class="btn btn-call">Free Quote</a>
+      <a href="#quote" class="btn btn-call">Free Quote</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks">☰</button>
     </div>
   </div>
@@ -398,7 +399,7 @@
     <p class="sub">For over 20 years we've hauled it all — from a single couch to a full property cleanout — across Tampa, Brandon, Riverview, Clearwater &amp; St. Pete. Same-day service, upfront pricing, no hidden fees. We also pressure wash to restore your curb appeal. One call clears it all.</p>
     <div class="hero-cta">
       <a href="tel:+18447473075" class="btn btn-call">📞 Call (844) 747-3075</a>
-      <a href="#contact" class="btn btn-ghost">Get a Free Quote</a>
+      <a href="#quote" class="btn btn-ghost">Get a Free Quote</a>
     </div>
     <div class="trust-row">
       <span>⚡ Same-Day &amp; Next-Day</span>
@@ -428,7 +429,7 @@
             <li>Construction &amp; yard debris</li>
             <li>Hot tub &amp; shed teardown</li>
           </ul>
-          <a href="#contact" class="btn btn-call">Get My Free Quote</a>
+          <a href="#quote" class="btn btn-call">Get My Free Quote</a>
         </div>
       </article>
       <article class="card" id="pressure">
@@ -443,7 +444,7 @@
             <li>Pool decks &amp; lanais</li>
             <li>Commercial storefronts</li>
           </ul>
-          <a href="#contact" class="btn btn-call">Get My Free Quote</a>
+          <a href="#quote" class="btn btn-call">Get My Free Quote</a>
         </div>
       </article>
     </div>
@@ -500,12 +501,12 @@
     <h2>Serving Tampa &amp; All of Tampa Bay</h2>
     <p class="lead center">Strong Valley Multi Services covers Hillsborough and Pinellas County — including these communities and everywhere in between. Don't see your town? Just call, chances are we're already nearby.</p>
     <div class="area-grid">
-      <a href="#contact">📍 Tampa</a>
-      <a href="#contact">📍 Brandon</a>
-      <a href="#contact">📍 Riverview</a>
-      <a href="#contact">📍 Plant City</a>
-      <a href="#contact">📍 Clearwater</a>
-      <a href="#contact">📍 St. Petersburg</a>
+      <a href="#quote">📍 Tampa</a>
+      <a href="#quote">📍 Brandon</a>
+      <a href="#quote">📍 Riverview</a>
+      <a href="#quote">📍 Plant City</a>
+      <a href="#quote">📍 Clearwater</a>
+      <a href="#quote">📍 St. Petersburg</a>
     </div>
   </div>
 </section>
@@ -600,7 +601,7 @@
       <!-- LEADS: sent to villafuertedelbys@gmail.com, CC'd to dsbusinessaccount@yahoo.com.
            IMPORTANT: the very first time someone submits, FormSubmit emails the Gmail
            address a one-click "Activate" link — click it once and all future leads flow in. -->
-      <form action="https://formsubmit.co/villafuertedelbys@gmail.com" method="POST">
+      <form id="quote" action="https://formsubmit.co/villafuertedelbys@gmail.com" method="POST">
         <input type="hidden" name="_cc" value="dsbusinessaccount@yahoo.com">
         <input type="hidden" name="_subject" value="New quote request from strongvalleyservices.com">
         <input type="hidden" name="_template" value="table">
@@ -641,7 +642,7 @@
       <h4>Services</h4>
       <a href="#junk">Junk Removal</a>
       <a href="#pressure">Pressure Washing</a>
-      <a href="#contact">Free Quote</a>
+      <a href="#quote">Free Quote</a>
     </div>
     <div>
       <h4>Company</h4>
@@ -661,7 +662,7 @@
 <!-- STICKY MOBILE CTA BAR -->
 <div class="sticky-bar">
   <a href="tel:+18447473075" class="sc-call">📞 Call Now</a>
-  <a href="#contact" class="sc-quote">✉️ Free Quote</a>
+  <a href="#quote" class="sc-quote">✉️ Free Quote</a>
 </div>
 
 <script>
@@ -672,6 +673,22 @@
     t.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
   l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ l.classList.remove('open'); t.setAttribute('aria-expanded','false'); }); });
+
+  // "Free Quote" buttons jump INSTANTLY to the form (no fast smooth-scroll), landing on the form itself
+  document.querySelectorAll('a[href="#quote"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var form = document.getElementById('quote');
+      if (!form) return;
+      e.preventDefault();
+      if (l) { l.classList.remove('open'); t.setAttribute('aria-expanded','false'); }
+      var html = document.documentElement, prev = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';        // force teleport, ignore smooth scroll
+      form.scrollIntoView({ block: 'start' });
+      html.style.scrollBehavior = prev;
+      var first = form.querySelector('input, select, textarea');
+      if (first) first.focus({ preventScroll: true });
+    });
+  });
 
   // Show a thank-you banner after the form redirects back (?sent=1)
   if (location.search.indexOf('sent=1') > -1) {
