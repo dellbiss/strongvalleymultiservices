@@ -310,7 +310,6 @@
   .qinfo li{color:#d8e4ee;margin-bottom:.55em;padding-left:1.7em;position:relative;font-size:1.05rem}
   .qinfo li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:900}
   form{background:#fff;border-radius:18px;padding:32px;box-shadow:var(--shadow)}
-  #quote{scroll-margin-top:120px}
   form label{display:block;font-weight:700;color:var(--ink);margin:0 0 6px;font-size:1rem}
   form input,form select,form textarea{width:100%;padding:14px 15px;border:2px solid var(--line);border-radius:10px;margin-bottom:18px;font-size:16px;font-family:inherit;color:var(--ink)}
   form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--accent)}
@@ -674,17 +673,18 @@
   });
   l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ l.classList.remove('open'); t.setAttribute('aria-expanded','false'); }); });
 
-  // "Free Quote" buttons jump INSTANTLY to the form (no fast smooth-scroll), landing on the form itself
+  // "Free Quote" buttons jump INSTANTLY to the form (no smooth-scroll tween), landing right on it
   document.querySelectorAll('a[href="#quote"]').forEach(function(a){
     a.addEventListener('click', function(e){
       var form = document.getElementById('quote');
       if (!form) return;
       e.preventDefault();
       if (l) { l.classList.remove('open'); t.setAttribute('aria-expanded','false'); }
-      var html = document.documentElement, prev = html.style.scrollBehavior;
-      html.style.scrollBehavior = 'auto';        // force teleport, ignore smooth scroll
-      form.scrollIntoView({ block: 'start' });
-      html.style.scrollBehavior = prev;
+      var root = document.documentElement, prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';                  // disable CSS smooth for the jump
+      try { form.scrollIntoView({ block: 'start', behavior: 'instant' }); }
+      catch (err) { form.scrollIntoView(true); }           // older-browser fallback (still instant here)
+      root.style.scrollBehavior = prev;
       var first = form.querySelector('input, select, textarea');
       if (first) first.focus({ preventScroll: true });
     });
@@ -726,4 +726,3 @@
 </script>
 </body>
 </html>
-
